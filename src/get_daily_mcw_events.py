@@ -23,6 +23,7 @@ def get_daily_mcw_events(date=datetime.today()):
     """
 
     # Should move this to a config file
+    # Should make a dic so I can convert between code and class name
     current_classes = [
                 "INTE-12102", #Climb
                 "PWAY-12210", #UCH
@@ -45,13 +46,13 @@ def get_daily_mcw_events(date=datetime.today()):
                 today_date = standardize_date(date)
 
                 if event_date == today_date:
-
                     events.append({
+                            "event_cat": f"mcw/{ current_classes[[current_class in str(component.get('description')) for current_class in current_classes].index(True)]}",
                             "event_start": component.get('dtstart').dt,
                             "event_end": component.get('dtend').dt,
                             "event_title": component.get('summary'),
-                            "event_sum": component.get('LOCATION'),
-                            "event_loc":"@TODO"
+                            "event_sum": "@TODO",
+                            "event_loc": component.get('LOCATION')
                         })
 
     return events

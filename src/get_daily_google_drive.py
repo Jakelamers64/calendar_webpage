@@ -41,11 +41,12 @@ def get_daily_google_drive(date=datetime.today()):
                     )
             
             events.append({
+                    "event_cat":f"google/{row['Event Category']}/{row['Sub Category']}",
                     "event_start":start_time,
                     "event_end":end_time,
                     "event_title":row["Event Title"],
                     "event_sum":row["Event Description"],
-                    "event_loc":"@TODO"
+                    "event_loc":row["Event Location"]
                 })
 
     return events
