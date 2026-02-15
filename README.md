@@ -9,5 +9,8 @@
 - pulls most up to date stable version (version no. tag) from github everyday
 - create ten tests for every function in calendar_webpage
 - add a column for category so I can classify actual after I do it
+- Create a config file for user vars and paths
+- Comment all files needed in v1
+- Create a fleshed out README.md
 ### Future Directions
 - to be continued...
