@@ -1,0 +1,48 @@
+
+.schedule-table {
+	border: 1px solid black;
+        border-collapse: collapse;
+        width: 100%;
+}
+.table-cell {
+	border: 1px solid black;
+        padding: 8px;
+}
+.time-cell {
+	border: 1px solid black;
+        padding: 8px;
+        background-color: #f0f0f0;
+        width: 1%;
+        white-space: nowrap;
+}
+.schedule-cell {
+        border: 1px solid black;
+        padding: 8px;
+        width: 1%;
+        white-space: break-word;
+        overflow-wrap: break-word;
+        min-width: 60%;
+}
+.actual-cell {
+        border: 1px solid black;
+        padding: 8px;
+}
+.mcw-event-div {
+	background-image:
+		repeating-linear-gradient(
+				0deg,
+                    		rgba(0, 0, 0, 0.15),
+                    		rgba(0, 0, 0, 0.15)    2px,
+                    		rgba(255, 255, 255, 0) 2px,
+                    		rgba(255,255,255,0) 15px
+			),
+		repeating-linear-gradient(
+                    		90deg,
+                    		rgba(0, 0, 0, 0.15),
+                    		rgba(0, 0, 0, 0.15)    2px,
+                    		rgba(255, 255, 255, 0) 2px,
+                    		rgba(255,255,255,0) 15px
+                	);
+	background-repeat: no-repeat;
+	border: 1px solid black;
+}

@@ -29,7 +29,5 @@ def get_events_df(date=datetime.today()):
     for event in get_daily_google_drive(date):
         events_df = pd.concat([events_df,pd.DataFrame([event])], ignore_index=True)
 
-    print(events_df)
-
     return events_df
 

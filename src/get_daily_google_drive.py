@@ -13,6 +13,14 @@ def get_daily_google_drive(date=datetime.today()):
     Link to the sheet:
     https://docs.google.com/spreadsheets/d/1JnGfqPFGsKdM3HeDIfKrqM4-33PkxCMW7YH-PoAPZkY/edit?usp=sharing
     """
+    #Clean date
+    date = date.replace(
+                hour=0,
+                minute=0,
+                second=0,
+                microsecond=0,
+                tzinfo=pytz.utc
+            )
 
     gsheetkey = "1JnGfqPFGsKdM3HeDIfKrqM4-33PkxCMW7YH-PoAPZkY" 
 
@@ -21,9 +29,13 @@ def get_daily_google_drive(date=datetime.today()):
     url = f'https://docs.google.com/spreadsheet/ccc?key={gsheetkey}&output=xlsx'
     events_df = pd.read_excel(url,sheet_name=sheet_name)
 
+    # Debug
+    #print(events_df)
+
     events = []
 
     for i, row in events_df.iterrows():
+        row["Event Date"] = row["Event Date"].replace(tzinfo=pytz.utc)
 
         if row["Event Date"] == date:
             start_time = row['Event Date'].replace(
@@ -48,5 +60,5 @@ def get_daily_google_drive(date=datetime.today()):
                     "event_sum":row["Event Description"],
                     "event_loc":row["Event Location"]
                 })
-
+    #print(events)
     return events
