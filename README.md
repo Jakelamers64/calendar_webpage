@@ -6,6 +6,8 @@
 - x contain all events from google drive for that day
 ### v2 Features (In progress)
 - contain unique background for category: School, Extracurricular, Hobbies and Other
-- pulls most up to date stable version (version no. tag) from github everyday 
+- pulls most up to date stable version (version no. tag) from github everyday
+- create ten tests for every function in calendar_webpage
+- add a column for category so I can classify actual after I do it
 ### Future Directions
 - to be continued...
