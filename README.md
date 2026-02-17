@@ -5,6 +5,7 @@
 - x contain all events from mcw oasis for that day
 - x contain all events from google drive for that day
 ### v2 Features (In progress)
+- Fix the fact that times are all pushed back 6 hours
 - contain unique background for category: School, Extracurricular, Hobbies and Other
 - pulls most up to date stable version (version no. tag) from github everyday
 - create ten tests for every function in calendar_webpage
