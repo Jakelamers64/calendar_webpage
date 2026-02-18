@@ -48,8 +48,8 @@ def get_daily_mcw_events(date=datetime.today()):
                 if event_date == today_date:
                     events.append({
                             "event_cat": f"mcw/{ current_classes[[current_class in str(component.get('description')) for current_class in current_classes].index(True)]}",
-                            "event_start": component.get('dtstart').dt,
-                            "event_end": component.get('dtend').dt,
+                            "event_start": component.get('dtstart').dt.replace(tzinfo=pytz.timezone('America/Chicago')),
+                            "event_end": component.get('dtend').dt.replace(tzinfo=pytz.timezone('America/Chicago')),
                             "event_title": component.get('summary'),
                             "event_sum": "@TODO",
                             "event_loc": component.get('LOCATION')
