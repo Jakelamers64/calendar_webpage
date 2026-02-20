@@ -13,15 +13,6 @@ def get_daily_google_drive(date=datetime.today()):
     Link to the sheet:
     https://docs.google.com/spreadsheets/d/1JnGfqPFGsKdM3HeDIfKrqM4-33PkxCMW7YH-PoAPZkY/edit?usp=sharing
     """
-    #Clean date
-    date = date.replace(
-                hour=0,
-                minute=0,
-                second=0,
-                microsecond=0,
-                tzinfo=pytz.utc
-            )
-
     gsheetkey = "1JnGfqPFGsKdM3HeDIfKrqM4-33PkxCMW7YH-PoAPZkY" 
 
     sheet_name = 'Form Responses 1'
@@ -35,21 +26,19 @@ def get_daily_google_drive(date=datetime.today()):
     events = []
 
     for i, row in events_df.iterrows():
-        row["Event Date"] = row["Event Date"].replace(tzinfo=pytz.utc)
-
-        if row["Event Date"] == date:
+        if row["Event Date"].date() == date.date():
             start_time = row['Event Date'].replace(
                         hour=row['Event Start Time'].hour,
                         minute=row['Event Start Time'].minute,
                         second=row['Event Start Time'].second,
-                        tzinfo=pytz.utc
+                        tzinfo=pytz.timezone('America/Chicago')
                     )
 
             end_time = row['Event Date'].replace(
                         hour=row['Event End Time'].hour,
                         minute=row['Event End Time'].minute,
                         second=row['Event End Time'].second,
-                        tzinfo=pytz.utc
+                        tzinfo=pytz.timezone('America/Chicago')
                     )
             
             events.append({
@@ -60,5 +49,5 @@ def get_daily_google_drive(date=datetime.today()):
                     "event_sum":row["Event Description"],
                     "event_loc":row["Event Location"]
                 })
-    #print(events)
+
     return events

@@ -11,7 +11,13 @@ def standardize_date(datetime_to_standardize):
 
     :return: datetime with just dates as nonzero
     """
-    return datetime_to_standardize.replace(hour=0, minute=0, second=0, microsecond=0,tzinfo=pytz.utc)
+    return datetime_to_standardize.replace(
+                hour=0, 
+                minute=0, 
+                second=0, 
+                microsecond=0,
+                tzinfo=pytz.timezone('America/Chicago')
+            )
 
 
 def get_daily_mcw_events(date=datetime.today()):
