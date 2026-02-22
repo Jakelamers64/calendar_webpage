@@ -13,5 +13,6 @@
 - Create a config file for user vars and paths
 - Comment all files needed in v1
 - Create a fleshed out README.md
+- Handle not being able to connect to the internet
 ### Future Directions
 - to be continued...
