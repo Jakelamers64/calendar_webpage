@@ -15,7 +15,7 @@ def get_event_str_for_15_min(block_start_time, block_end_time, events_df, date=d
     block_html = ""
 
     for i, event in events_df.iterrows():
-        if event["event_start"] <= block_start_time and event["event_end"] > block_start_time:
+        if (block_start_time >= event["event_start"]) and (block_end_time <= event["event_end"]):
             block_html = str(block_html) + "<div class='mcw-event-div'>" + str(event["event_title"]) + "<br>" + str(event["event_loc"]) + "</div>"
     
     return block_html
@@ -51,18 +51,25 @@ def gen_cal_html(date=datetime.today()):
     #print(events_df)
 
     for i in range(0,24*4):
-        block_start_time = date.replace(
-                    hour=(math.floor(i/4)),
-                    minute=((i%4)*15),
-                    tzinfo=pytz.timezone('America/Chicago')
-                )
+        # Create the block start time with the correct timezone
+        block_start_time = pytz.timezone('America/Chicago').localize(
+            date.replace(
+                hour=(math.floor(i / 4)),
+                minute=((i % 4) * 15),
+                second=0,
+                microsecond=0
+            )
+        )
 
-        # @TODO Hand midnight end of day
-        block_end_time = date.replace(
-                    hour=(math.floor((i+1)/4)) % 24,
-                    minute=(((i+1)%4)*15),
-                    tzinfo=pytz.timezone('America/Chicago')
-                )
+        # Create block end time with the correct timezone
+        block_end_time = pytz.timezone('America/Chicago').localize(
+            date.replace(
+                hour=(math.floor((i + 1) / 4)) % 24,
+                minute=(((i + 1) % 4) * 15),
+                second=0,
+                microsecond=0
+            )
+        )
     
 
         html += "\t\t<tr>\n"
