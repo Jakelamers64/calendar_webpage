@@ -4,20 +4,20 @@ import requests
 from icalendar import Calendar
 from datetime import datetime
 
-def standardize_date(datetime_to_standardize):
-    """
-    Sets all dt data to zero other than date and standardizes
-    the timezone for date comparsions
-
-    :return: datetime with just dates as nonzero
-    """
-    return datetime_to_standardize.replace(
-                hour=0, 
-                minute=0, 
-                second=0, 
-                microsecond=0,
-                tzinfo=pytz.timezone('America/Chicago')
-            )
+#def standardize_date(datetime_to_standardize):
+#    """
+#    Sets all dt data to zero other than date and standardizes
+#    the timezone for date comparsions
+#
+#    :return: datetime with just dates as nonzero
+#    """
+#    return datetime_to_standardize.replace(
+#                hour=0, 
+#                minute=0, 
+#                second=0, 
+#                microsecond=0,
+#                tzinfo=pytz.timezone('America/Chicago')
+#            )
 
 
 def get_daily_mcw_events(date=datetime.today()):
@@ -34,7 +34,10 @@ def get_daily_mcw_events(date=datetime.today()):
                 "INTE-12102", #Climb
                 "PWAY-12210", #UCH
                 "INTE-12104", #TGD
-                "INTE-11106"  #Resp
+                "INTE-11106", #Resp
+                "INTE-11107", #Renal
+                "INTE-11108", #EndoRepro
+                "INTE-11109"  #Nuero (Guess)
             ]
     
     # Should move this to a config file
@@ -47,15 +50,20 @@ def get_daily_mcw_events(date=datetime.today()):
     # Extract events
     for component in calendar.walk():
         if component.name == "VEVENT":
-            if sum([current_class in str(component.get('description')) for current_class in current_classes]) > 0:
-                event_date = standardize_date(component.get('dtstart').dt)
-                today_date = standardize_date(date)
+            if (
+                    sum([current_class in str(component.get('description')) for current_class in current_classes]) > 0 and
+                    'GB' not in str(component.get('description')) and
+                    'CW' not in str(component.get('description')) and
+                    'PANOPTO' not in str(component.get('summary'))
+                ):
+                #event_date = standardize_date(component.get('dtstart').dt)
+                #today_date = standardize_date(date)
 
-                if event_date == today_date:
+                if component.get('dtstart').dt.date() == date.date():
                     events.append({
                             "event_cat": f"mcw/{ current_classes[[current_class in str(component.get('description')) for current_class in current_classes].index(True)]}",
-                            "event_start": component.get('dtstart').dt.replace(tzinfo=pytz.timezone('America/Chicago')),
-                            "event_end": component.get('dtend').dt.replace(tzinfo=pytz.timezone('America/Chicago')),
+                            "event_start": component.get('dtstart').dt.astimezone(pytz.timezone('America/Chicago')),
+                            "event_end": component.get('dtend').dt.astimezone(pytz.timezone('America/Chicago')),
                             "event_title": component.get('summary'),
                             "event_sum": "@TODO",
                             "event_loc": component.get('LOCATION')

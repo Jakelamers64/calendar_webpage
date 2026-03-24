@@ -17,7 +17,7 @@ def get_event_str_for_15_min(block_start_time, block_end_time, events_df, date=d
     for i, event in events_df.iterrows():
         if (block_start_time >= event["event_start"]) and (block_end_time <= event["event_end"]):
             block_html = str(block_html) + "<div class='mcw-event-div'>" + str(event["event_title"]) + "<br>" + str(event["event_loc"]) + "</div>"
-    
+
     return block_html
 
 
